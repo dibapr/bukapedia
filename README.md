@@ -1,6 +1,7 @@
 # bukapedia
 Final Project 2 dari Hacktiv8 mengenai E-Commerce
-E-Commerce Web Project using FakeStoreAPI
+
+E-Commerce Web Project using [FakeStoreAPI](https://fakestoreapi.com)
 
 ## ![logo](https://github.githubassets.com/images/icons/emoji/unicode/1f465.png) Project Members
 1. Dinda Friska Oktaviana
