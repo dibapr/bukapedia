@@ -1,10 +1,11 @@
 import { Outlet, Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import ModeToggle from "../ModeToggle/ModeToggle";
 
 export const Navbar = () => {
   return (
     <>
-      <div className="navbar sticky top-0 drop-shadow-lg bg-base-100">
+      <div className="navbar sticky top-0 drop-shadow-lg bg-base-100 z-10">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -37,7 +38,10 @@ export const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">Bukapedia</a>
+          <div className="flex gap-[1.13rem]">
+            <a className="btn btn-ghost normal-case text-xl">Bukapedia</a>
+            <ModeToggle />
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu gap-5 menu-horizontal px-1">
