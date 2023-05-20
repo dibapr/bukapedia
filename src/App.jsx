@@ -1,9 +1,10 @@
 import { Navbar } from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Product from "./pages/Product/Index";
-import Cart from "./pages/Cart/Index";
-import Login from "./pages/Login/Index";
-import Admin from "./pages/Admin/Index";
+import ProductPage from "./pages/ProductPage/Index";
+import CartPage from "./pages/CartPage/Index";
+import LoginPage from "./pages/LoginPage/Index";
+import AdminPage from "./pages/AdminPage/Index";
+import "./globals.css";
 
 function App() {
   return (
@@ -11,10 +12,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navbar />}>
-            <Route index path="/" element={<Product />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="login" element={<Login />} />
-            <Route path="admin" element={<Admin />} />
+            <Route index path="/" element={<ProductPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="admin" element={<AdminPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
