@@ -1,17 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getProduct = createAsyncThunk(
-  "product/getProduct",
-  async (url) => {
-    try {
-      const resp = await axios.get(url);
-      return resp.data;
-    } catch (error) {
-      console.log(error);
-    }
+export const getProduct = createAsyncThunk("product/getProduct", async () => {
+  try {
+    const resp = await axios.get("https://fakestoreapi.com/products/");
+    return resp.data;
+  } catch (error) {
+    console.log(error);
   }
-);
+});
 
 const initialState = {
   product: [],
@@ -24,23 +21,23 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     setCart: (state, action) => {
-      const objectIndex = state.cart.findIndex(
-        (item) => item.id === action.payload.id
-      );
+      const { id, quantity } = action.payload;
+      const objectIndex = state.cart.findIndex((item) => item.id === id);
 
-      state.cart =
-        objectIndex === -1
-          ? [...state.cart, { ...action.payload, quantity: 1 }]
-          : state.cart.map((item, index) =>
-              index === objectIndex
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-            );
+      objectIndex === -1
+        ? state.cart.push({ ...action.payload, quantity: 1 })
+        : (state.cart[objectIndex].quantity += quantity);
+    },
+    updateQuantityCart: (state, action) => {
+      const { id, quantity } = action.payload;
+      const objectIndex = state.cart.findIndex((item) => item.id === id);
+
+      state.cart[objectIndex].quantity = Number(quantity);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProduct.pending, (state) => {
+      .addCase(getProduct.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(getProduct.fulfilled, (state, action) => {
@@ -57,5 +54,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { setCart } = productSlice.actions;
+export const { setCart, updateQuantityCart } = productSlice.actions;
 export default productSlice.reducer;
