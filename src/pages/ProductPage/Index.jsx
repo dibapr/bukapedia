@@ -46,7 +46,7 @@ const ProductPage = () => {
                 description={item.description}
                 actionAddToCart={() => {
                   // navigate("/login");
-                  console.log("item: ", item);
+                  item = { ...item, quantity: 1 };
                   dispatch(setCart(item));
                 }}
                 actionDetail={() => console.log("Tombol Detail Ditekan")}
