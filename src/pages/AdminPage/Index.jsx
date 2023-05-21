@@ -1,8 +1,9 @@
-import useTitle from "../../hooks/useTitle";
+import Stock from "../../components/Admin/Stock"
 
-const AdminPage = () => {
-  useTitle("Admin | Bukapedia");
-  return <h1>Admin page</h1>;
+const Admin = () => {
+  return (
+    <Stock/>
+  )
 };
 
-export default AdminPage;
+export default Admin;

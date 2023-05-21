@@ -33,7 +33,7 @@ const CartPage = () => {
                     value={item.quantity === 0 ? "" : item.quantity}
                     onChange={(e) => {
                       console.log(e.target.value);
-                      item = { ...item, quantity: Ne.target.value };
+                      item = { ...item, quantity: e.target.value };
                       dispatch(updateQuantityCart(item));
                     }}
                   />
