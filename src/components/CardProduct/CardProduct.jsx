@@ -31,7 +31,7 @@ const CardProduct = ({
               Detail
             </button>
             <button
-              className="btn btn-primary gap-2 w-full text-white"
+              className="btn btn-success gap-2 w-full text-white"
               onClick={actionAddToCart}>
               <BsFillCartPlusFill />
               Add to Cart

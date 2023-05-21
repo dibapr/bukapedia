@@ -1,4 +1,4 @@
-import SkeletonItem from "./SkeletonItem.jsx/SkeletonItem";
+import SkeletonItem from "./SkeletonItem/SkeletonItem";
 
 const Skeletons = () => {
   return (
