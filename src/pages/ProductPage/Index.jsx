@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct, setCart } from "../../redux/reducers/productSlice";
 import CardProduct from "../../components/CardProduct/CardProduct";
 import { useNavigate } from "react-router-dom";
-import Skeletons from "../../components/Skeleton/SkeletonItem.jsx/SkeletonItem";
+import Skeletons from "../../components/Skeleton/SkeletonItem/SkeletonItem";
 import useTitle from "../../hooks/useTitle";
 import FilterProduct from "../../components/FilterProduct/FilterProduct";
 
@@ -11,7 +11,7 @@ const ProductPage = () => {
   useTitle("Product | Bukapedia");
   const dispatch = useDispatch();
   const { product, isLoading } = useSelector((state) => state.product);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [filter, setFilter] = useState("");
 
   const filterHandler = (filter) => {
@@ -45,11 +45,10 @@ const ProductPage = () => {
                 category={item.category}
                 description={item.description}
                 actionAddToCart={() => {
-                  // navigate("/login");
-                  console.log("item: ", item);
+                  item = { ...item, quantity: 1 };
                   dispatch(setCart(item));
                 }}
-                actionDetail={() => console.log("Tombol Detail Ditekan")}
+                actionDetail={() => navigate(`/${item.id}`)}
               />
             ))}
       </div>

@@ -5,6 +5,7 @@ import CartPage from "./pages/CartPage/Index";
 import LoginPage from "./pages/LoginPage/Index";
 import AdminPage from "./pages/AdminPage/Index";
 import "./globals.css";
+import ProductDetailPage from "./pages/ProductPage/ProductDetailPage/Index";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navbar />}>
             <Route index path="/" element={<ProductPage />} />
+            <Route path="/:id" element={<ProductDetailPage />} />
             <Route path="cart" element={<CartPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="admin" element={<AdminPage />} />
