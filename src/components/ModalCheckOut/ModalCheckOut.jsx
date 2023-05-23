@@ -1,0 +1,40 @@
+const ModalCheckOut = ({ onClick, item, htmlFor }) => {
+  return (
+    <>
+      {/* Put this part before </body> tag */}
+      <input type="checkbox" id={htmlFor} className="modal-toggle" />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box flex-col">
+          <h3 className="font-bold text-lg">Check Out</h3>
+          <p className="py-4">Apakah anda ingin melakukkan check out pada:</p>
+          <ul className="list-decimal list-inside">
+            {item.map((item, index) =>
+              item.available === true ? (
+                <li key={index}>
+                  {item.title} : {item.quantity}
+                </li>
+              ) : null
+            )}
+          </ul>
+          <div className="modal-action">
+            <label
+              htmlFor={htmlFor}
+              onClick={onClick}
+              className="btn btn-success text-white hover:bg-green-700"
+            >
+              Check Out!
+            </label>
+            <label
+              htmlFor={htmlFor}
+              className="btn btn-error text-white hover:bg-red-700"
+            >
+              Batal
+            </label>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ModalCheckOut;
