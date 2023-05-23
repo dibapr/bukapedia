@@ -17,7 +17,7 @@ export const Navbar = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProduct("https://fakestoreapi.com/products/"));
+    dispatch(getProduct());
   }, [dispatch]);
 
   return (
