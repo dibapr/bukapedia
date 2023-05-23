@@ -1,7 +1,7 @@
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import useTitle from "../../hooks/useTitle";
-
+import Modal from "../Modal/Modal";
 const ProductDetail = ({
   title,
   category,
@@ -10,8 +10,19 @@ const ProductDetail = ({
   description,
   image,
 }) => {
+  const [modal, setModal] = useState(false);
+  const token = localStorage.getItem("token");
   useTitle(`${title} | Bukapedia`);
   const [qty, setQty] = useState(1);
+
+  const addToCartHandler = () => {
+    if (!token) {
+      setModal(true);
+      return;
+    }
+    item = { ...item, quantity: 1 };
+    dispatch(setCart(item));
+  };
 
   return (
     <>
@@ -45,12 +56,15 @@ const ProductDetail = ({
             <h1>Subtotal:</h1>
             <h1>{`$${qty * price.toFixed(2)}`}</h1>
           </div>
-          <button className="btn btn-success gap-2 text-white">
+          <button
+            onClick={addToCartHandler}
+            className="btn btn-success gap-2 text-white">
             <BsFillCartPlusFill />
             Add to Cart
           </button>
         </div>
       </div>
+      {modal && <Modal modalOpen="modal-open" modalClose={setModal} />}
     </>
   );
 };

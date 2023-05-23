@@ -1,11 +1,29 @@
 import { useDispatch, useSelector } from "react-redux";
 import useTitle from "../../hooks/useTitle";
 import { updateQuantityCart } from "../../redux/reducers/productSlice";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const CartPage = () => {
   useTitle("Cart | Bukapedia");
-  const { cart } = useSelector((state) => state.product);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const token = localStorage.token;
+
+  useEffect(() => {
+    if (!token) {
+      return navigate("/");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (token === "admin") {
+      return navigate("../admin");
+    }
+  }, [token]);
+
+  const { cart } = useSelector((state) => state.product);
+
   return (
     <div className="overflow-x-auto flex justify-center">
       {cart.length === 0 ? (
