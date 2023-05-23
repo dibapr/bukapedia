@@ -2,6 +2,8 @@ import { useState } from "react";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import useTitle from "../../hooks/useTitle";
 import Modal from "../Modal/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "../../redux/reducers/cartSlice";
 const ProductDetail = ({
   title,
   category,
@@ -9,19 +11,27 @@ const ProductDetail = ({
   quantity,
   description,
   image,
+  item,
 }) => {
   const [modal, setModal] = useState(false);
   const token = localStorage.getItem("token");
+  const { cart } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   useTitle(`${title} | Bukapedia`);
   const [qty, setQty] = useState(1);
 
-  const addToCartHandler = () => {
+  const addToCartHandler = (item) => {
     if (!token) {
       setModal(true);
       return;
     }
-    item = { ...item, quantity: 1 };
+    const cartQuantity = cart.find((cart) => cart.id === item.id)?.quantity;
+    const available =
+      cartQuantity <= cartQuantity - item.quantity || !cartQuantity;
+
+    item = { ...item, quantity: qty, available: available };
     dispatch(setCart(item));
+    setQty("");
   };
 
   return (
@@ -48,17 +58,18 @@ const ProductDetail = ({
               className="border p-2 mb-2"
               type="number"
               value={qty < 1 ? "" : qty}
-              onChange={(e) => setQty(e.target.value)}
+              onChange={(e) => setQty(Number(e.target.value))}
             />
             <h1>Stock: {quantity}</h1>
           </div>
           <div className="">
             <h1>Subtotal:</h1>
-            <h1>{`$${qty * price.toFixed(2)}`}</h1>
+            <h1>{(qty * price).toFixed(2)}</h1>
           </div>
           <button
-            onClick={addToCartHandler}
-            className="btn btn-success gap-2 text-white">
+            onClick={() => addToCartHandler(item)}
+            className="btn btn-success gap-2 text-white"
+          >
             <BsFillCartPlusFill />
             Add to Cart
           </button>

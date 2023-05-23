@@ -12,17 +12,13 @@ const ProductDetailPage = () => {
   const navigate = useNavigate();
   const { product, isLoading } = useSelector((state) => state.product);
 
-  const url = `https://fakestoreapi.com/products`;
+  // const url = `https://fakestoreapi.com/products`;
 
   useEffect(() => {
     if (localStorage.token === "admin") {
       return navigate("../../admin");
     }
   }, []);
-
-  useEffect(() => {
-    dispatch(getProduct(url));
-  }, [dispatch, url]);
 
   console.log();
 
@@ -35,6 +31,7 @@ const ProductDetailPage = () => {
           .filter((item) => item.id === parseInt(params.id))
           .map((item) => (
             <ProductDetail
+              item={item}
               key={item.id}
               id={item.id}
               title={item.title}
