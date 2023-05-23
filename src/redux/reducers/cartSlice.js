@@ -26,7 +26,7 @@ const cartSlice = createSlice({
       const objectIndex = state.cart.findIndex((item) => item.id === id);
 
       objectIndex === -1
-        ? state.cart.push({ ...action.payload, quantity: 1 })
+        ? state.cart.push({ ...action.payload, quantity: quantity })
         : ((state.cart[objectIndex].quantity += quantity),
           (state.cart[objectIndex].available = available));
     },

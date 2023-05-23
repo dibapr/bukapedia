@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import useTitle from "../../hooks/useTitle";
-import { updateQuantityCart } from "../../redux/reducers/productSlice";
+
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-import { useEffect, useState } from "react";
 import {
   checkOutCart,
   updateQuantityCart,
@@ -26,27 +25,21 @@ const CartPage = () => {
   const updateCart = (e, item) => {
     const available =
       product.find((prod) => prod.id === item.id)?.quantity >= e.target.value;
-    console.log(cart);
-    console.log(available);
 
     item = {
       ...item,
       quantity: Number(e.target.value),
       available: available,
     };
-    console.log(item);
+
     dispatch(updateQuantityCart(item));
-    console.log(cart);
   };
 
   const handlerCheckOut = () => {
     dispatch(updateQuantityProduct(cart));
     dispatch(checkOutCart());
   };
-  useEffect(() => {
-    console.log(cart);
-    // console.log(product);
-  }, [cart]);
+
   useEffect(() => {
     if (!token) {
       return navigate("/");
@@ -70,11 +63,10 @@ const CartPage = () => {
               {/* head */}
               <thead>
                 <tr>
-                  <th>Product Name</th>
-                  <th>Price</th>
-                  <th>Stok</th>
+                  <th className="w-2/5">Product Name</th>
+                  <th className="w-32">Price</th>
                   <th>Status</th>
-                  <th>Quantity</th>
+                  <th className="w-40">Quantity</th>
                   <th>Total</th>
                 </tr>
               </thead>
@@ -83,15 +75,14 @@ const CartPage = () => {
                   <tr key={index}>
                     <td className="overflow-hidden">{item.title}</td>
                     <td className="flex-1">{item.price}</td>
-                    <td className="flex-1">
-                      {product.find((prod) => prod.id === item.id)?.quantity}
-                    </td>
-                    <td>
-                      {item.available === true ? "Item tersedia" : "Item Habis"}
-                    </td>
+                    {item.available === true ? (
+                      <td className="text-green-700">Quantity Tersedia</td>
+                    ) : (
+                      <td className="text-red-700">Quantity Tidak Tersedia</td>
+                    )}
                     <td className="flex-1">
                       <input
-                        className="border-2"
+                        className="border-2 w-16"
                         type="number"
                         style={
                           {
@@ -115,7 +106,6 @@ const CartPage = () => {
                   </tr>
                 ))}
                 <tr>
-                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>

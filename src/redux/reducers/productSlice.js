@@ -23,7 +23,7 @@ export const getProductByFilter = createAsyncThunk(
 
 const initialState = {
   product: [],
-  filter: [],
+  filterProduct: [],
   isLoading: false,
 };
 
@@ -67,15 +67,13 @@ const productSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getProductByFilter.fulfilled, (state, action) => {
-        state.filter = action.payload;
-        let objectIndex;
         let objectQuantity;
-        action.payload.map(
+        state.filterProduct = action.payload.map(
           (item) => (
-            (objectIndex = state.product.findIndex(
+            (objectQuantity = state.product.find(
               (prod) => prod.id === item.id
-            )),
-            { ...item, quantity: state.product[objectIndex].quantity }
+            )?.quantity),
+            { ...item, quantity: objectQuantity }
           )
         );
         state.isLoading = false;
