@@ -9,6 +9,7 @@ import {
 import Button from "../../components/Button/Button";
 import axios from "axios";
 import { updateQuantityProduct } from "../../redux/reducers/productSlice";
+import ModalCheckOut from "../../components/ModalCheckOut/ModalCheckOut";
 
 const CartPage = () => {
   useTitle("Cart | Bukapedia");
@@ -32,6 +33,10 @@ const CartPage = () => {
     console.log(cart);
   };
 
+  const handlerCheckOut = () => {
+    dispatch(updateQuantityProduct(cart));
+    dispatch(checkOutCart());
+  };
   useEffect(() => {
     console.log(cart);
     // console.log(product);
@@ -96,19 +101,23 @@ const CartPage = () => {
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td></td>
                   <td>
-                    <Button
-                      name={"Check Out"}
-                      onClick={() => {
-                        console.log("cart:", cart);
-                        dispatch(updateQuantityProduct(cart));
-                        dispatch(checkOutCart());
-                      }}
-                    />
+                    <label
+                      htmlFor="my-modal-6"
+                      className="btn text-white btn-success"
+                    >
+                      Check Out
+                    </label>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <ModalCheckOut
+              item={cart}
+              onClick={() => handlerCheckOut()}
+              htmlFor={"my-modal-6"}
+            />
           </div>
         </div>
       )}
