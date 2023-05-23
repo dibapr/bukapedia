@@ -12,10 +12,21 @@ export const getProduct = createAsyncThunk(
     }
   }
 );
+export const getProductByFilter = createAsyncThunk(
+  "product/getProductByFilter",
+  async (url) => {
+    try {
+      const resp = await axios.get(url);
+      return resp.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 const initialState = {
   product: [],
-  cart: [],
+  filter: [],
   isLoading: false,
 };
 
@@ -23,20 +34,18 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    setCart: (state, action) => {
-      const { id, quantity } = action.payload;
-      const objectIndex = state.cart.findIndex((item) => item.id === id);
-
-      objectIndex === -1
-        ? state.cart.push({ ...action.payload, quantity: 1 })
-        : (state.cart[objectIndex].quantity += quantity);
-    },
-
-    updateQuantityCart: (state, action) => {
-      const { id, quantity } = action.payload;
-      const objectIndex = state.cart.findIndex((item) => item.id === id);
-
-      state.cart[objectIndex].quantity = Number(quantity);
+    updateQuantityProduct: (state, action) => {
+      let objectIndex;
+      action.payload.map(
+        (item) => (
+          (objectIndex = state.product.findIndex(
+            (prod) => prod.id === item.id
+          )),
+          item.available === false
+            ? state.product[objectIndex.quantity]
+            : (state.product[objectIndex].quantity -= item.quantity)
+        )
+      );
     },
   },
 
@@ -55,9 +64,31 @@ const productSlice = createSlice({
       .addCase(getProduct.rejected, (state, action) => {
         state.isLoading = false;
         console.log("error", action.error.message);
+      })
+      //Filter Case
+      .addCase(getProductByFilter.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getProductByFilter.fulfilled, (state, action) => {
+        state.filter = action.payload;
+        let objectIndex;
+        let objectQuantity;
+        action.payload.map(
+          (item) => (
+            (objectIndex = state.product.findIndex(
+              (prod) => prod.id === item.id
+            )),
+            { ...item, quantity: state.product[objectIndex].quantity }
+          )
+        );
+        state.isLoading = false;
+      })
+      .addCase(getProductByFilter.rejected, (state, action) => {
+        state.isLoading = false;
+        console.log("error", action.error.message);
       });
   },
 });
 
-export const { setCart, updateQuantityCart } = productSlice.actions;
+export const { updateQuantityProduct } = productSlice.actions;
 export default productSlice.reducer;
