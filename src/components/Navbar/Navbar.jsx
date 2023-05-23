@@ -1,11 +1,20 @@
 import { Outlet, Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import ModeToggle from "../ModeToggle/ModeToggle";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getProduct } from "../../redux/reducers/productSlice";
+import { getCart } from "../../redux/reducers/cartSlice";
 
 export const Navbar = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProduct("https://fakestoreapi.com/products/"));
+  }, [dispatch]);
+
   return (
     <>
-      <div className="navbar sticky top-0 drop-shadow-lg bg-base-100 z-10">
+      <div className="navbar sticky top-0 drop-shadow-lg bg-base-100 z-20">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -14,7 +23,8 @@ export const Navbar = () => {
                 className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor">
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -25,14 +35,16 @@ export const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content gap-1 mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              className="menu menu-compact dropdown-content gap-1 mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
               <li>
                 <Link to="/">Product</Link>
               </li>
               <li>
                 <Link
                   to="/login"
-                  className="bg-green-500 hover:bg-green-400 text-white">
+                  className="bg-green-500 hover:bg-green-400 text-white"
+                >
                   Login
                 </Link>
               </li>
@@ -51,7 +63,8 @@ export const Navbar = () => {
             <li>
               <Link
                 to="/login"
-                className="bg-green-500 hover:bg-green-400 text-white">
+                className="bg-green-500 hover:bg-green-400 text-white"
+              >
                 Login
               </Link>
             </li>

@@ -12,9 +12,9 @@ const ProductDetailPage = () => {
 
   const url = `https://fakestoreapi.com/products`;
 
-  useEffect(() => {
-    dispatch(getProduct(url));
-  }, [dispatch, url]);
+  // useEffect(() => {
+  //   dispatch(getProduct(url));
+  // }, [dispatch, url]);
 
   console.log();
 

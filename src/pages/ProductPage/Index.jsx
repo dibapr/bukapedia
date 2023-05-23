@@ -1,31 +1,51 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct, setCart } from "../../redux/reducers/productSlice";
+import {
+  getProduct,
+  getProductByFilter,
+} from "../../redux/reducers/productSlice";
 import CardProduct from "../../components/CardProduct/CardProduct";
 import { useNavigate } from "react-router-dom";
 import Skeletons from "../../components/Skeleton/SkeletonItem/SkeletonItem";
 import useTitle from "../../hooks/useTitle";
 import FilterProduct from "../../components/FilterProduct/FilterProduct";
+import { setCart } from "../../redux/reducers/cartSlice";
 
 const ProductPage = () => {
   useTitle("Product | Bukapedia");
   const dispatch = useDispatch();
-  const { product, isLoading } = useSelector((state) => state.product);
+  const { product, filter, isLoading } = useSelector((state) => state.product);
+  const { cart } = useSelector((state) => state.cart);
   const navigate = useNavigate();
-  const [filter, setFilter] = useState("");
+  const [filt, setFilter] = useState("");
 
-  const filterHandler = (filter) => {
-    if (!filter) {
+  const filterHandler = (filt) => {
+    if (!filt) {
       setFilter("");
       return;
     }
-    setFilter(`category/${filter}`);
+    setFilter(`category/${filt}`);
   };
 
-  const url = `https://fakestoreapi.com/products/${filter}`;
+  const addToCart = (item) => {
+    const objectIndex = product.findIndex((prod) => prod.id === item.id);
+    const available =
+      cart.find((cart) => cart.id === product[objectIndex].id)?.quantity <=
+      product[objectIndex].quantity;
+
+    console.log(available);
+    item = {
+      ...item,
+      quantity: 1,
+      available: available,
+    };
+    dispatch(setCart(item));
+  };
+
+  const url = `https://fakestoreapi.com/products/${filt}`;
 
   useEffect(() => {
-    dispatch(getProduct(url));
+    dispatch(getProductByFilter(url));
   }, [dispatch, url]);
 
   return (
@@ -36,7 +56,7 @@ const ProductPage = () => {
           ? [...Array(8).keys()].map((i) => {
               return <Skeletons key={i} />;
             })
-          : product.map((item, index) => (
+          : filter.map((item, index) => (
               <CardProduct
                 key={index}
                 title={item.title}
@@ -45,8 +65,7 @@ const ProductPage = () => {
                 category={item.category}
                 description={item.description}
                 actionAddToCart={() => {
-                  item = { ...item, quantity: 1 };
-                  dispatch(setCart(item));
+                  addToCart(item);
                 }}
                 actionDetail={() => navigate(`/${item.id}`)}
               />
