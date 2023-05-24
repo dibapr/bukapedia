@@ -31,16 +31,13 @@ const ProductPage = () => {
 
   const addToCart = (item) => {
     const objectIndex = product.findIndex((prod) => prod.id === item.id);
-
     const cartQuantity = cart.find(
       (cart) => cart.id === product[objectIndex].id
     )?.quantity;
-    const available =
-      cartQuantity <= product[objectIndex].quantity || !cartQuantity;
+
     item = {
       ...item,
       quantity: 1,
-      available: available,
     };
     dispatch(setCart(item));
   };
@@ -74,6 +71,7 @@ const ProductPage = () => {
                   price={item.price}
                   category={item.category}
                   description={item.description}
+                  quantity={item.quantity}
                   actionAddToCart={() => {
                     if (!token) {
                       setModal(true);

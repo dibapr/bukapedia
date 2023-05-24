@@ -31,27 +31,26 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
+    updateCheckOutProduct: (state, action) => {
+      let objectIndex;
+      action.payload.map(
+        (item) => (
+          (objectIndex = state.product.findIndex(
+            (prod) => prod.id === item.id
+          )),
+          (state.product[objectIndex].quantity -= item.quantity)
+        )
+      );
+    },
     updateQuantityProduct: (state, action) => {
       action.payload.map((item) => {
-        const objectIndex = state.product.findIndex((prod) => prod.id === item.id);
-        if (objectIndex !== -1) {
-          if (item.available === false) {
-            // console.log("Old quantity:", state.product[objectIndex].quantity);
-            // console.log("New quantity:", item.quantity);
-            
-            state.product[objectIndex].quantity = item.quantity;
-          } else {
-            // console.log("Old quantity:", state.product[objectIndex].quantity);
-            // console.log("New Quantity:", item.quantity);
-            
-            state.product[objectIndex].quantity -= item.quantity;
-          }
-        }
+        const objectIndex = state.product.findIndex(
+          (prod) => prod.id === item.id
+        );
+        state.product[objectIndex].quantity = item.quantity;
       });
     },
   },
-
-
 
   extraReducers: (builder) => {
     builder
@@ -92,5 +91,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { updateQuantityProduct } = productSlice.actions;
+export const { updateCheckOutProduct, updateQuantityProduct } =
+  productSlice.actions;
 export default productSlice.reducer;
