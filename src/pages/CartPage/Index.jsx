@@ -8,7 +8,7 @@ import {
   checkOutCart,
   updateQuantityCart,
 } from "../../redux/reducers/cartSlice";
-import { updateQuantityProduct } from "../../redux/reducers/productSlice";
+import { updateCheckOutProduct } from "../../redux/reducers/productSlice";
 import ModalCheckOut from "../../components/ModalCheckOut/ModalCheckOut";
 
 const CartPage = () => {
@@ -21,20 +21,27 @@ const CartPage = () => {
   const { product } = useSelector((state) => state.product);
 
   const updateCart = (e, item) => {
-    const available =
-      product.find((prod) => prod.id === item.id)?.quantity >= e.target.value;
-
     item = {
       ...item,
       quantity: Number(e.target.value),
-      available: available,
     };
     dispatch(updateQuantityCart(item));
   };
 
   const handlerCheckOut = () => {
-    dispatch(updateQuantityProduct(cart));
-    dispatch(checkOutCart());
+    let objectQuantity;
+    const newArray = [];
+    product.map((item) => {
+      (objectQuantity = cart.find((cart) => cart.id === item.id)?.quantity),
+        item.quantity >= objectQuantity
+          ? newArray.push({ id: item.id, quantity: objectQuantity })
+          : null;
+    });
+
+    console.log(newArray);
+
+    dispatch(updateCheckOutProduct(newArray));
+    dispatch(checkOutCart(newArray));
   };
 
   useEffect(() => {
@@ -78,14 +85,15 @@ const CartPage = () => {
                 let total = item.price * item.quantity;
                 return (
                   <tr key={index}>
-                    <td className="overflow-hidden">{item.title}</td>
-                    <td className="flex-1">{`$${item.price}`}</td>
-                    {item.available === true ? (
-                      <td className="text-green-700">Quantity Tersedia</td>
+                    <td>{item.title}</td>
+                    <td>{`$${item.price}`}</td>
+                    {item.quantity <=
+                    product.find((prod) => prod.id === item.id)?.quantity ? (
+                      <td className="text-green-700 ">Quantity Tersedia</td>
                     ) : (
                       <td className="text-red-700">Quantity Tidak Tersedia</td>
                     )}
-                    <td className="flex-1">
+                    <td>
                       <input
                         className="border dark:border-slate-600 outline-none p-1 w-16"
                         type="number"
@@ -95,9 +103,7 @@ const CartPage = () => {
                         }}
                       />
                     </td>
-                    <td className="flex-1">
-                      {item.quantity <= 0 ? 0 : `$${total.toFixed(2)}`}
-                    </td>
+                    <td>{item.quantity <= 0 ? 0 : `$${total.toFixed(2)}`}</td>
                   </tr>
                 );
               })}
@@ -107,12 +113,15 @@ const CartPage = () => {
                 <td>
                   <label
                     htmlFor="my-modal-6"
-                    className="btn text-white btn-success">
+                    className="btn text-white btn-success"
+                  >
                     Check Out
                   </label>
                 </td>
                 <td className="font-semibold">TOTAL</td>
-                <td className="font-semibold">{`$${totalPrice.toFixed(2)}`}</td>
+                <td className="font-semibold">
+                  {totalPrice <= 0 ? 0 : `$${totalPrice.toFixed(2)}`}
+                </td>
               </tr>
             </tbody>
           </table>

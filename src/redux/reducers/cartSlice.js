@@ -37,11 +37,17 @@ const cartSlice = createSlice({
       state.cart[objectIndex].available = available;
     },
     checkOutCart: (state, action) => {
-      const newArray = state.cart.filter(
-        (item) => item.available !== true || item.quantity <= 0
-      );
-      console.log(newArray);
+      const { id } = action.payload;
+      const newArray = state.cart.filter((cart) => {
+        return !action.payload.some((payload) => payload.id === cart.id);
+      });
+
+      // const newArray = state.cart.filter(
+      //   (item) => item.available !== true || item.quantity <= 0
+      // );
+
       state.cart = newArray;
+      console.log(state.cart);
     },
   },
 

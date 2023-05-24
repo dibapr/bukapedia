@@ -20,8 +20,6 @@ const ProductDetailPage = () => {
     }
   }, []);
 
-  console.log();
-
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 lg:justify-items-start gap-5 justify-items-center">
       {isLoading ? (
