@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate, NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import ModeToggle from "../ModeToggle/ModeToggle";
 import { useEffect } from "react";
@@ -7,6 +7,14 @@ import { getProduct } from "../../redux/reducers/productSlice";
 import { getCart } from "../../redux/reducers/cartSlice";
 
 export const Navbar = () => {
+  const token = localStorage.token;
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    navigate("login");
+  };
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProduct());
@@ -38,15 +46,33 @@ export const Navbar = () => {
               className="menu menu-compact dropdown-content gap-1 mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link to="/">Product</Link>
+                {localStorage.token === "admin" ? (
+                  <Link to="admin">Product</Link>
+                ) : (
+                  <Link to="/">Product</Link>
+                )}
               </li>
+              {localStorage.token === "admin" && (
+                <li>
+                  <Link to="admin/sales-recap">Sales Recap</Link>
+                </li>
+              )}
               <li>
-                <Link
-                  to="/login"
-                  className="bg-green-500 hover:bg-green-400 text-white"
-                >
-                  Login
-                </Link>
+                {token ? (
+                  <button
+                    onClick={logoutHandler}
+                    className="btn btn-error text-white"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="bg-green-500 hover:bg-green-400 text-white"
+                  >
+                    Login
+                  </Link>
+                )}
               </li>
             </ul>
           </div>
@@ -58,23 +84,53 @@ export const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu gap-5 menu-horizontal px-1">
             <li>
-              <Link to="/">Product</Link>
+              {localStorage.token === "admin" ? (
+                <Link to="admin">Product</Link>
+              ) : (
+                <Link to="/">Product</Link>
+              )}
             </li>
+            {localStorage.token === "admin" && (
+              <li>
+                <Link to="admin/sales-recap">Sales Recap</Link>
+              </li>
+            )}
             <li>
-              <Link
-                to="/login"
-                className="bg-green-500 hover:bg-green-400 text-white"
-              >
-                Login
-              </Link>
+              {token ? (
+                <button
+                  onClick={logoutHandler}
+                  className="btn btn-error text-white"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="bg-green-500 hover:bg-green-400 text-white"
+                >
+                  Login
+                </Link>
+              )}
             </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to="/cart" className="btn gap-2">
-            <FaShoppingCart />
-            Cart
-          </Link>
+          {token && token !== "admin" && (
+            <Link to="/cart" className="btn gap-2">
+              <FaShoppingCart />
+              Cart
+            </Link>
+          )}
+
+          {/* {token ? (
+            <Link to="/cart" className="btn gap-2">
+              <FaShoppingCart />
+              Cart
+            </Link>
+          ) : (token !== "admin" ? <Link to="/cart" className="btn gap-2">
+              <FaShoppingCart />
+              Cart
+            </Link>) :} */}
         </div>
       </div>
       <main className="container px-7 py-10">

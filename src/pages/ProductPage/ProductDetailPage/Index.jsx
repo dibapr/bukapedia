@@ -4,19 +4,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import ProductDetail from "../../../components/ProductDetail/ProductDetail";
 import SkeletonDetail from "../../../components/Skeleton/SkeletonDetail/SkeletonDetail";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetailPage = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { product, isLoading } = useSelector((state) => state.product);
 
-  const url = `https://fakestoreapi.com/products`;
+  // const url = `https://fakestoreapi.com/products`;
 
-  // useEffect(() => {
-  //   dispatch(getProduct(url));
-  // }, [dispatch, url]);
-
-  console.log();
+  useEffect(() => {
+    if (localStorage.token === "admin") {
+      return navigate("../../admin");
+    }
+  }, []);
 
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 lg:justify-items-start gap-5 justify-items-center">
@@ -27,6 +29,7 @@ const ProductDetailPage = () => {
           .filter((item) => item.id === parseInt(params.id))
           .map((item) => (
             <ProductDetail
+              item={item}
               key={item.id}
               id={item.id}
               title={item.title}
