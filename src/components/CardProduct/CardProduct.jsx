@@ -6,6 +6,7 @@ const CardProduct = ({
   title,
   category,
   price,
+  quantity,
   description,
   actionAddToCart,
   actionDetail,
@@ -15,8 +16,9 @@ const CardProduct = ({
       <figure className="bg-white border-b-2 py-4">
         <img className="object-contain w-full h-[12rem]" src={img} alt={img} />
       </figure>
-      <div className="card-body flex flex-col gap-5">
+      <div className="card-body flex flex-col gap-3">
         <h2 className="card-title line-clamp-1">{title}</h2>
+        <p className="line-clamp-3">Stock: {quantity}</p>
         <p className="line-clamp-3">{description}</p>
         <div className="flex items-center">
           <p className="font-semibold">{`$${price}`}</p>

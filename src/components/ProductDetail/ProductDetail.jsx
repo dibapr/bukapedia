@@ -68,8 +68,7 @@ const ProductDetail = ({
           </div>
           <button
             onClick={() => addToCartHandler(item)}
-            className="btn btn-success gap-2 text-white"
-          >
+            className="btn btn-success gap-2 text-white">
             <BsFillCartPlusFill />
             Add to Cart
           </button>
