@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux";
+
 const ModalCheckOut = ({ onClick, item, htmlFor }) => {
+  const { product } = useSelector((state) => state.product);
+
   return (
     <>
       {/* Put this part before </body> tag */}
@@ -9,7 +13,8 @@ const ModalCheckOut = ({ onClick, item, htmlFor }) => {
           <p className="py-4">Apakah anda ingin melakukkan check out pada:</p>
           <ul className="list-decimal list-inside">
             {item.map((item, index) =>
-              item.available === true ? (
+              item.quantity <=
+              product.find((prod) => prod.id === item.id)?.quantity ? (
                 <li key={index}>
                   {item.title} : {item.quantity}
                 </li>
@@ -20,12 +25,14 @@ const ModalCheckOut = ({ onClick, item, htmlFor }) => {
             <label
               htmlFor={htmlFor}
               onClick={onClick}
-              className="btn btn-success text-white hover:bg-green-700">
+              className="btn btn-success text-white hover:bg-green-700"
+            >
               Check Out!
             </label>
             <label
               htmlFor={htmlFor}
-              className="btn btn-error text-white hover:bg-red-700">
+              className="btn btn-error text-white hover:bg-red-700"
+            >
               Batal
             </label>
           </div>
