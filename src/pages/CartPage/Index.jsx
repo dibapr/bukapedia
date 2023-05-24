@@ -8,7 +8,7 @@ import {
   checkOutCart,
   updateQuantityCart,
 } from "../../redux/reducers/cartSlice";
-import { updateQuantityProduct } from "../../redux/reducers/productSlice";
+import { updateCheckOutProduct } from "../../redux/reducers/productSlice";
 import ModalCheckOut from "../../components/ModalCheckOut/ModalCheckOut";
 
 const CartPage = () => {
@@ -33,7 +33,7 @@ const CartPage = () => {
   };
 
   const handlerCheckOut = () => {
-    dispatch(updateQuantityProduct(cart));
+    dispatch(updateCheckOutProduct(cart));
     dispatch(checkOutCart());
   };
 
@@ -107,7 +107,8 @@ const CartPage = () => {
                 <td>
                   <label
                     htmlFor="my-modal-6"
-                    className="btn text-white btn-success">
+                    className="btn text-white btn-success"
+                  >
                     Check Out
                   </label>
                 </td>
