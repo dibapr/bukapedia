@@ -91,6 +91,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { updateCheckOutProduct, updateQuantityProduct } =
+export const { updateQuantityProduct, updateCheckOutProduct } =
   productSlice.actions;
 export default productSlice.reducer;
