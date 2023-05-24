@@ -23,10 +23,6 @@ const SalesRecapPage = () => {
   const { cart } = useSelector((state) => state.cart);
   let total = 0;
 
-  useEffect(() => {
-    dispatch(checkOutCart());
-  }, [dispatch]);
-
   if (cart.length >= 1) {
     return (
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-4/5 mx-auto">
