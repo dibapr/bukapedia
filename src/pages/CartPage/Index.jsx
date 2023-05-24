@@ -119,7 +119,9 @@ const CartPage = () => {
                   </label>
                 </td>
                 <td className="font-semibold">TOTAL</td>
-                <td className="font-semibold">{`$${totalPrice.toFixed(2)}`}</td>
+                <td className="font-semibold">
+                  {totalPrice <= 0 ? 0 : `$${totalPrice.toFixed(2)}`}
+                </td>
               </tr>
             </tbody>
           </table>

@@ -7,31 +7,22 @@ import {
 
 const Stock = () => {
   const dispatch = useDispatch();
-
   const { product } = useSelector((state) => state.product);
+  const [updatedStocks, setUpdatedStocks] = useState({});
 
-  const [items, setItems] = useState(product);
-
-  const handlerUpdateQuantity = (e, id) => {
-    const updatedItems = [...items];
-
-    const objectIndex = updatedItems.findIndex((item) => item.id === id);
-
-    updatedItems[objectIndex] = {
-      ...updatedItems[objectIndex],
-      quantity: Number(e.target.value),
-    };
-
-    setItems(updatedItems);
+  const handleStockChange = (id, newQuantity) => {
+    setUpdatedStocks((prevStocks) => ({
+      ...prevStocks,
+      [id]: newQuantity,
+    }));
   };
 
-  const handlerUpdateProduct = () => {
-    dispatch(updateQuantityProduct(items));
+  const handleUpdateStock = (id, quantity) => {
+    const updatedProducts = [{ id, quantity }];
+    console.log(updatedProducts);
+    dispatch(updateQuantityProduct(updatedProducts));
+    alert(`Stock has been updated`);
   };
-
-  // useEffect(() => {
-  //   dispatch(getProduct());
-  // }, [dispatch]);
 
   return (
     <div>
@@ -47,8 +38,8 @@ const Stock = () => {
             </tr>
           </thead>
           <tbody>
-            {items.map((item, index) => (
-              <tr key={index}>
+            {product.map((item) => (
+              <tr key={item.id}>
                 <td className="h-32 w-32 px-5 bg-white py-3 border-b border-neutral">
                   <img src={item.image} alt={item.title} />
                 </td>
@@ -61,16 +52,25 @@ const Stock = () => {
                 </td>
                 <td className="px-5 py-3 border-b border-neutral">
                   <input
+                    onChange={(e) =>
+                      handleStockChange(item.id, Number(e.target.value))
+                    }
+                    id="quantity"
                     type="number"
-                    value={item.quantity}
-                    onChange={(e) => handlerUpdateQuantity(e, item.id)}
+                    value={
+                      updatedStocks[item.id] !== undefined
+                        ? updatedStocks[item.id]
+                        : item.quantity
+                    }
                     className="input input-ghost text-center font-bold h-10 text-xl w-32 mx-10 rounded-base"
                   />
                 </td>
                 <td className="px-5 py-3 border-b border-neutral">
                   <button
+                    onClick={() =>
+                      handleUpdateStock(item.id, updatedStocks[item.id])
+                    }
                     className="btn btn-accent btn-sm"
-                    onClick={handlerUpdateProduct}
                   >
                     Update
                   </button>
@@ -81,9 +81,10 @@ const Stock = () => {
         </table>
       </div>
 
-      {items.map((item, index) => (
+      {/* mobile */}
+      {product.map((item) => (
         <div
-          key={index}
+          key={item.id}
           className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden"
         >
           <div className="space-y-2 p-4 rounded-lg shadow-xl">
@@ -102,13 +103,21 @@ const Stock = () => {
             <div className="flex items-center space-x-2">
               <input
                 type="number"
-                value={item.quantity}
-                onChange={(e) => handlerUpdateQuantity(e, item.id)}
+                onChange={(e) =>
+                  handleStockChange(item.id, Number(e.target.value))
+                }
+                value={
+                  updatedStocks[item.id] !== undefined
+                    ? updatedStocks[item.id]
+                    : item.quantity
+                }
                 className="input input-bordered text-center font-bold text-sm h-8 w-32 mr-2 rounded-base"
               />
               <button
-                className="btn btn-info btn-sm"
-                onClick={handlerUpdateProduct}
+                onClick={() =>
+                  handleUpdateStock(item.id, updatedStocks[item.id])
+                }
+                className="btn btn-accent btn-sm"
               >
                 Update
               </button>

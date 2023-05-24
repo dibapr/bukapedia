@@ -43,7 +43,12 @@ const productSlice = createSlice({
       );
     },
     updateQuantityProduct: (state, action) => {
-      state.product = action.payload;
+      action.payload.map((item) => {
+        const objectIndex = state.product.findIndex(
+          (prod) => prod.id === item.id
+        );
+        state.product[objectIndex].quantity = item.quantity;
+      });
     },
   },
 
