@@ -26,10 +26,8 @@ const ProductDetail = ({
       return;
     }
     const cartQuantity = cart.find((cart) => cart.id === item.id)?.quantity;
-    const available =
-      cartQuantity <= cartQuantity - item.quantity || !cartQuantity;
 
-    item = { ...item, quantity: qty, available: available };
+    item = { ...item, quantity: qty };
     dispatch(setCart(item));
     setQty("");
   };
@@ -64,7 +62,7 @@ const ProductDetail = ({
           </div>
           <div className="">
             <h1>Subtotal:</h1>
-            <h1>{(qty * price).toFixed(2)}</h1>
+            <h1>${qty <= 0 ? 0 : (qty * price).toFixed(2)}</h1>
           </div>
           <button
             onClick={() => addToCartHandler(item)}

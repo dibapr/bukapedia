@@ -19,9 +19,7 @@ const LoginContainer = ({ username, password }) => {
     setUserPassword(e.target.value);
   };
 
-  const submitHandler = async (e) => {
-    console.log(username);
-    console.log(password);
+  const submitHandler = async () => {
     if (userName === "admin@bukapedia.com" && userPassword === "admin123") {
       navigate("../admin");
       setErrorMsg("");
@@ -39,7 +37,6 @@ const LoginContainer = ({ username, password }) => {
             password: userPassword,
           }
         );
-        console.log(response);
         setErrorMsg("");
         setLoading(false);
         const getToken = response?.data?.token;

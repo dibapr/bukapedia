@@ -31,18 +31,24 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    updateQuantityProduct: (state, action) => {
+    updateCheckOutProduct: (state, action) => {
       let objectIndex;
       action.payload.map(
         (item) => (
           (objectIndex = state.product.findIndex(
             (prod) => prod.id === item.id
           )),
-          item.available === false
-            ? state.product[objectIndex.quantity]
-            : (state.product[objectIndex].quantity -= item.quantity)
+          (state.product[objectIndex].quantity -= item.quantity)
         )
       );
+    },
+    updateQuantityProduct: (state, action) => {
+      action.payload.map((item) => {
+        const objectIndex = state.product.findIndex(
+          (prod) => prod.id === item.id
+        );
+        state.product[objectIndex].quantity = item.quantity;
+      });
     },
   },
 
@@ -85,5 +91,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { updateQuantityProduct } = productSlice.actions;
+export const { updateCheckOutProduct, updateQuantityProduct } =
+  productSlice.actions;
 export default productSlice.reducer;
