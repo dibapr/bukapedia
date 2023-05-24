@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getProduct } from "../../../redux/reducers/productSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import ProductDetail from "../../../components/ProductDetail/ProductDetail";
 import SkeletonDetail from "../../../components/Skeleton/SkeletonDetail/SkeletonDetail";
@@ -8,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 const ProductDetailPage = () => {
   const params = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { product, isLoading } = useSelector((state) => state.product);
 
@@ -18,7 +16,7 @@ const ProductDetailPage = () => {
     if (localStorage.token === "admin") {
       return navigate("../../admin");
     }
-  }, []);
+  }, [localStorage.token]);
 
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 lg:justify-items-start gap-5 justify-items-center">
