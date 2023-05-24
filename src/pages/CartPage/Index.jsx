@@ -85,15 +85,15 @@ const CartPage = () => {
                 let total = item.price * item.quantity;
                 return (
                   <tr key={index}>
-                    <td className="overflow-hidden">{item.title}</td>
-                    <td className="flex-1">{`$${item.price}`}</td>
+                    <td>{item.title}</td>
+                    <td>{`$${item.price}`}</td>
                     {item.quantity <=
                     product.find((prod) => prod.id === item.id)?.quantity ? (
-                      <td className="text-green-700">Quantity Tersedia</td>
+                      <td className="text-green-700 ">Quantity Tersedia</td>
                     ) : (
                       <td className="text-red-700">Quantity Tidak Tersedia</td>
                     )}
-                    <td className="flex-1">
+                    <td>
                       <input
                         className="border dark:border-slate-600 outline-none p-1 w-16"
                         type="number"
@@ -103,9 +103,7 @@ const CartPage = () => {
                         }}
                       />
                     </td>
-                    <td className="flex-1">
-                      {item.quantity <= 0 ? 0 : `$${total.toFixed(2)}`}
-                    </td>
+                    <td>{item.quantity <= 0 ? 0 : `$${total.toFixed(2)}`}</td>
                   </tr>
                 );
               })}
