@@ -35,12 +35,10 @@ const ProductPage = () => {
     const cartQuantity = cart.find(
       (cart) => cart.id === product[objectIndex].id
     )?.quantity;
-    const available =
-      cartQuantity <= product[objectIndex].quantity || !cartQuantity;
+
     item = {
       ...item,
       quantity: 1,
-      available: available,
     };
     dispatch(setCart(item));
   };

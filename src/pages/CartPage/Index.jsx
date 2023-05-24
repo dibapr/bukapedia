@@ -23,21 +23,28 @@ const CartPage = () => {
   const { product } = useSelector((state) => state.product);
 
   const updateCart = (e, item) => {
-    const available =
-      product.find((prod) => prod.id === item.id)?.quantity >= e.target.value;
-
     item = {
       ...item,
       quantity: Number(e.target.value),
-      available: available,
     };
 
     dispatch(updateQuantityCart(item));
   };
 
   const handlerCheckOut = () => {
-    dispatch(updateQuantityProduct(cart));
-    dispatch(checkOutCart());
+    let objectQuantity;
+    const newArray = [];
+    product.map((item) => {
+      (objectQuantity = cart.find((cart) => cart.id === item.id)?.quantity),
+        item.quantity >= objectQuantity
+          ? newArray.push({ id: item.id, quantity: objectQuantity })
+          : null;
+    });
+
+    console.log(newArray);
+
+    dispatch(updateQuantityProduct(newArray));
+    dispatch(checkOutCart(newArray));
   };
 
   useEffect(() => {
@@ -75,7 +82,8 @@ const CartPage = () => {
                   <tr key={index}>
                     <td className="overflow-hidden">{item.title}</td>
                     <td className="flex-1">{item.price}</td>
-                    {item.available === true ? (
+                    {item.quantity <=
+                    product.find((prod) => prod.id === item.id)?.quantity ? (
                       <td className="text-green-700">Quantity Tersedia</td>
                     ) : (
                       <td className="text-red-700">Quantity Tidak Tersedia</td>

@@ -26,10 +26,8 @@ const ProductDetail = ({
       return;
     }
     const cartQuantity = cart.find((cart) => cart.id === item.id)?.quantity;
-    const available =
-      cartQuantity <= cartQuantity - item.quantity || !cartQuantity;
 
-    item = { ...item, quantity: qty, available: available };
+    item = { ...item, quantity: qty };
     dispatch(setCart(item));
     setQty("");
   };

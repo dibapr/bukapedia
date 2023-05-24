@@ -38,9 +38,7 @@ const productSlice = createSlice({
           (objectIndex = state.product.findIndex(
             (prod) => prod.id === item.id
           )),
-          item.available === false
-            ? state.product[objectIndex.quantity]
-            : (state.product[objectIndex].quantity -= item.quantity)
+          (state.product[objectIndex].quantity -= item.quantity)
         )
       );
     },
