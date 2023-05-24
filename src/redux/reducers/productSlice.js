@@ -31,7 +31,7 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    updateQuantityProduct: (state, action) => {
+    updateCheckOutProduct: (state, action) => {
       let objectIndex;
       action.payload.map(
         (item) => (
@@ -41,6 +41,9 @@ const productSlice = createSlice({
           (state.product[objectIndex].quantity -= item.quantity)
         )
       );
+    },
+    updateQuantityProduct: (state, action) => {
+      state.product = action.payload;
     },
   },
 
@@ -83,5 +86,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { updateQuantityProduct } = productSlice.actions;
+export const { updateCheckOutProduct, updateQuantityProduct } =
+  productSlice.actions;
 export default productSlice.reducer;

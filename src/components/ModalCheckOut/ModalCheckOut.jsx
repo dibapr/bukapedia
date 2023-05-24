@@ -20,14 +20,12 @@ const ModalCheckOut = ({ onClick, item, htmlFor }) => {
             <label
               htmlFor={htmlFor}
               onClick={onClick}
-              className="btn btn-success text-white hover:bg-green-700"
-            >
+              className="btn btn-success text-white hover:bg-green-700">
               Check Out!
             </label>
             <label
               htmlFor={htmlFor}
-              className="btn btn-error text-white hover:bg-red-700"
-            >
+              className="btn btn-error text-white hover:bg-red-700">
               Batal
             </label>
           </div>

@@ -31,7 +31,6 @@ const ProductPage = () => {
 
   const addToCart = (item) => {
     const objectIndex = product.findIndex((prod) => prod.id === item.id);
-
     const cartQuantity = cart.find(
       (cart) => cart.id === product[objectIndex].id
     )?.quantity;
@@ -72,6 +71,7 @@ const ProductPage = () => {
                   price={item.price}
                   category={item.category}
                   description={item.description}
+                  quantity={item.quantity}
                   actionAddToCart={() => {
                     if (!token) {
                       setModal(true);
