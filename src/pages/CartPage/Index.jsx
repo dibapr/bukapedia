@@ -125,7 +125,6 @@ const CartPage = () => {
               </tr>
             </tbody>
           </table>
-
           <ModalCheckOut
             item={cart}
             onClick={() => handlerCheckOut()}
