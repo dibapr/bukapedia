@@ -9,7 +9,6 @@ const SalesRecapPage = () => {
 
   const token = localStorage.token;
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!token) {
@@ -22,10 +21,6 @@ const SalesRecapPage = () => {
 
   const { cart } = useSelector((state) => state.cart);
   let total = 0;
-
-  useEffect(() => {
-    dispatch(checkOutCart());
-  }, [dispatch]);
 
   if (cart.length >= 1) {
     return (
@@ -68,8 +63,7 @@ const SalesRecapPage = () => {
             <tr>
               <td
                 colSpan={3}
-                className="px-5 py-3 space-y-2 border-b border-neutral text-center font-bold"
-              >
+                className="px-5 py-3 space-y-2 border-b border-neutral text-center font-bold">
                 Total
               </td>
               <td className="px-5 py-3 space-y-2 border-b border-neutral text-right font-bo">
