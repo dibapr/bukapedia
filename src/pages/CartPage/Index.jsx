@@ -113,8 +113,7 @@ const CartPage = () => {
                 <td>
                   <label
                     htmlFor="my-modal-6"
-                    className="btn text-white btn-success"
-                  >
+                    className="btn text-white btn-success">
                     Check Out
                   </label>
                 </td>
