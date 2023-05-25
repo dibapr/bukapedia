@@ -5,8 +5,7 @@ const Button = ({ name, style, onClick, disabled, htmlFor }) => {
       style={style}
       onClick={onClick}
       disabled={disabled}
-      htmlFor={htmlFor}
-    >
+      htmlFor={htmlFor}>
       {name}
     </button>
   );

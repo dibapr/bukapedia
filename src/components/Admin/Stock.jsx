@@ -28,7 +28,7 @@ const Stock = () => {
     <div>
       <div className="overflow-auto rounded-lg shadow hidden md:block w-4/5 mx-auto">
         <table className="table-auto w-full">
-          <thead className="bg-neutral h-12">
+          <thead className="bg-neutral text-white dark:text-base h-12">
             <tr>
               <th colSpan={2} className="w-20 px-5 py-3 tracking-wide">
                 Product
@@ -70,8 +70,7 @@ const Stock = () => {
                     onClick={() =>
                       handleUpdateStock(item.id, updatedStocks[item.id])
                     }
-                    className="btn btn-accent btn-sm"
-                  >
+                    className="btn btn-accent btn-sm">
                     Update
                   </button>
                 </td>
@@ -85,8 +84,7 @@ const Stock = () => {
       {product.map((item) => (
         <div
           key={item.id}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden"
-        >
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
           <div className="space-y-2 p-4 rounded-lg shadow-xl">
             <div>
               <img className="w-32 mx-auto" src={item.image} alt={item.title} />
@@ -117,8 +115,7 @@ const Stock = () => {
                 onClick={() =>
                   handleUpdateStock(item.id, updatedStocks[item.id])
                 }
-                className="btn btn-accent btn-sm"
-              >
+                className="btn btn-accent btn-sm">
                 Update
               </button>
             </div>
