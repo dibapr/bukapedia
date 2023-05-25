@@ -13,6 +13,7 @@ E-Commerce Web Project using [FakeStoreAPI](https://fakestoreapi.com)
         - Username: kevinryan
         - Password: kev02937@
         - User allows you to adding a product to the cart and checkout
+- Search product from user input
 - Filter product based on the category
 - Cart system
 
