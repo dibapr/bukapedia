@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 const Search = ({ keywordOnChange }) => {
-  const [keyword, setKeyword] = useState();
+  const [keyword, setKeyword] = useState("");
 
-  const searchedKeyword = (e) => {
-    setKeyword(e.target.value);
-  };
+  // const searchedKeyword = (e) => {
+  //   setKeyword(e.target.value);
+  // };
 
   const searchKeywordButton = () => {
     keywordOnChange(keyword);
@@ -19,7 +19,8 @@ const Search = ({ keywordOnChange }) => {
           type="text"
           placeholder="Search…"
           className="input input-bordered"
-          onChange={searchedKeyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          value={keyword}
         />
         <button onClick={searchKeywordButton} className="btn btn-square">
           <svg

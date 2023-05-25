@@ -7,6 +7,7 @@ import AdminPage from "./pages/AdminPage/Index";
 import SalesRecapPage from "./pages/AdminPage/SalesRecapPage/Index";
 import "./globals.css";
 import ProductDetailPage from "./pages/ProductPage/ProductDetailPage/Index";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/sales-recap" element={<SalesRecapPage />} />
-        <Route path="*" element={<h1>dasda</h1>} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
