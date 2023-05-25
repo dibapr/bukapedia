@@ -14,11 +14,14 @@ const ModalCheckOut = ({ onClick, item, htmlFor }) => {
           <ul className="list-decimal list-inside">
             {item.map((item, index) =>
               item.quantity <=
-              product.find((prod) => prod.id === item.id)?.quantity ? (
+                product.find((prod) => prod.id === item.id)?.quantity &&
+              item.quantity != 0 ? (
                 <li key={index}>
                   {item.title} : {item.quantity}
                 </li>
-              ) : null
+              ) : (
+                <p key={index}>Tidak ada item yang tersedia</p>
+              )
             )}
           </ul>
           <div className="modal-action">
