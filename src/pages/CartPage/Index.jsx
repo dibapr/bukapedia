@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import {
   checkOutCart,
   updateQuantityCart,
+  updateRecapCheckOut,
 } from "../../redux/reducers/cartSlice";
 import { updateCheckOutProduct } from "../../redux/reducers/productSlice";
 import ModalCheckOut from "../../components/ModalCheckOut/ModalCheckOut";
@@ -21,9 +22,11 @@ const CartPage = () => {
   const { product } = useSelector((state) => state.product);
 
   const updateCart = (e, item) => {
+    const updateQty = e.target.value < 1 ? 0 : e.target.value;
+
     item = {
       ...item,
-      quantity: Number(e.target.value),
+      quantity: Number(updateQty),
     };
     dispatch(updateQuantityCart(item));
   };
@@ -33,15 +36,14 @@ const CartPage = () => {
     const newArray = [];
     product.map((item) => {
       (objectQuantity = cart.find((cart) => cart.id === item.id)?.quantity),
-        item.quantity >= objectQuantity
-          ? newArray.push({ id: item.id, quantity: objectQuantity })
+        item.quantity >= objectQuantity && objectQuantity > 0
+          ? newArray.push({ ...item, id: item.id, quantity: objectQuantity })
           : null;
     });
 
-    console.log(newArray);
-
     dispatch(updateCheckOutProduct(newArray));
     dispatch(checkOutCart(newArray));
+    dispatch(updateRecapCheckOut(newArray));
   };
 
   useEffect(() => {
@@ -113,7 +115,8 @@ const CartPage = () => {
                 <td>
                   <label
                     htmlFor="my-modal-6"
-                    className="btn text-white btn-success">
+                    className="btn text-white btn-success"
+                  >
                     Check Out
                   </label>
                 </td>

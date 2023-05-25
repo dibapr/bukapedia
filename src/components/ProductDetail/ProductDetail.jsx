@@ -27,10 +27,12 @@ const ProductDetail = ({
     }
 
     const cartQuantity = cart.find((cart) => cart.id === item.id)?.quantity;
-
     item = { ...item, quantity: qty };
-    dispatch(setCart(item));
-    setQty("");
+    qty <= 0 ? setQty(0) : dispatch(setCart(item));
+
+    console.log(item);
+
+    setQty(0);
   };
 
   return (
@@ -57,7 +59,9 @@ const ProductDetail = ({
               className="border p-2 mb-2"
               type="number"
               value={qty < 1 ? "" : qty}
-              onChange={(e) => setQty(Number(e.target.value))}
+              onChange={(e) =>
+                e.target.value <= 0 ? setQty(0) : setQty(Number(e.target.value))
+              }
             />
             <h1>Stock: {quantity}</h1>
           </div>
@@ -67,7 +71,8 @@ const ProductDetail = ({
           </div>
           <button
             onClick={() => addToCartHandler(item)}
-            className="btn btn-success gap-2 text-white">
+            className="btn btn-success gap-2 text-white"
+          >
             <BsFillCartPlusFill />
             Add to Cart
           </button>

@@ -9,6 +9,7 @@ const SalesRecapPage = () => {
 
   const token = localStorage.token;
   const navigate = useNavigate();
+  const { cart, recapCheckOut } = useSelector((state) => state.cart);
 
   useEffect(() => {
     if (!token) {
@@ -18,11 +19,9 @@ const SalesRecapPage = () => {
       return navigate("/");
     }
   }, [token, navigate]);
-
-  const { cart } = useSelector((state) => state.cart);
   let total = 0;
 
-  if (cart.length >= 1) {
+  if (recapCheckOut.length >= 1) {
     return (
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-4/5 mx-auto">
         <table className="table-auto w-full">
@@ -35,11 +34,11 @@ const SalesRecapPage = () => {
             </tr>
           </thead>
           <tbody>
-            {cart.map((item) => {
-              const itemTotal = item.sold * item.price;
+            {recapCheckOut.map((item, index) => {
+              const itemTotal = item.quantity * item.price;
               total += itemTotal;
               return (
-                <tr key={item.id}>
+                <tr key={index}>
                   <td className="px-5 py-3 space-y-2 border-b border-neutral">
                     <p className="font-semibold text-base">{item.title}</p>
                     <div className="badge badge-default badge-outline text-xs">
@@ -50,7 +49,7 @@ const SalesRecapPage = () => {
                     {item.price}
                   </td>
                   <td className="px-5 py-3 space-y-2 border-b border-neutral text-center">
-                    {item.sold}
+                    {item.quantity}
                   </td>
                   <td className="px-5 py-3 space-y-2 border-b border-neutral text-center">
                     {itemTotal}
@@ -63,7 +62,8 @@ const SalesRecapPage = () => {
             <tr>
               <td
                 colSpan={3}
-                className="px-5 py-3 space-y-2 border-b border-neutral text-center font-bold">
+                className="px-5 py-3 space-y-2 border-b border-neutral text-center font-bold"
+              >
                 Total
               </td>
               <td className="px-5 py-3 space-y-2 border-b border-neutral text-right font-bo">

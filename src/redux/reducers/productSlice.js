@@ -58,10 +58,12 @@ const productSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getProduct.fulfilled, (state, action) => {
-        state.product = action.payload.map((item) => ({
-          ...item,
-          quantity: 20,
-        }));
+        state.product.length === 0
+          ? (state.product = action.payload.map((item) => ({
+              ...item,
+              quantity: 20,
+            })))
+          : null;
         state.isLoading = false;
       })
       .addCase(getProduct.rejected, (state, action) => {

@@ -14,6 +14,7 @@ export const getCart = createAsyncThunk("Cart/getCart", async (userID) => {
 
 const initialState = {
   cart: [],
+  recapCheckOut: [],
   isLoading: false,
 };
 
@@ -22,32 +23,44 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCart: (state, action) => {
-      const { id, quantity, available } = action.payload;
+      const { id, quantity } = action.payload;
       const objectIndex = state.cart.findIndex((item) => item.id === id);
       objectIndex === -1
         ? state.cart.push({ ...action.payload, quantity: quantity })
-        : ((state.cart[objectIndex].quantity += quantity),
-          (state.cart[objectIndex].available = available));
+        : (state.cart[objectIndex].quantity += quantity);
     },
     updateQuantityCart: (state, action) => {
-      const { id, quantity, available } = action.payload;
+      const { id, quantity } = action.payload;
       const objectIndex = state.cart.findIndex((item) => item.id === id);
 
       state.cart[objectIndex].quantity = quantity;
-      state.cart[objectIndex].available = available;
     },
     checkOutCart: (state, action) => {
       const { id } = action.payload;
       const newArray = state.cart.filter((cart) => {
         return !action.payload.some((payload) => payload.id === cart.id);
       });
-
-      // const newArray = state.cart.filter(
-      //   (item) => item.available !== true || item.quantity <= 0
-      // );
-
       state.cart = newArray;
-      console.log(state.cart);
+    },
+    updateRecapCheckOut: (state, action) => {
+      const { quantity } = action.payload;
+      let objectIndex;
+      action.payload.map(
+        (item) => {
+          objectIndex = state.recapCheckOut.findIndex(
+            (recap) => recap.id === item.id
+          );
+          objectIndex === -1
+            ? state.recapCheckOut.push({ ...item })
+            : (state.recapCheckOut[objectIndex].quantity += item.quantity);
+        }
+        // (
+        //   (objectQuantity = state.product.find(
+        //     (prod) => prod.id === item.id
+        //   )?.quantity),
+        //   { ...item, quantity: objectQuantity }
+        // )
+      );
     },
   },
 
@@ -67,5 +80,10 @@ const cartSlice = createSlice({
   },
 });
 
-export const { setCart, updateQuantityCart, checkOutCart } = cartSlice.actions;
+export const {
+  setCart,
+  updateQuantityCart,
+  checkOutCart,
+  updateRecapCheckOut,
+} = cartSlice.actions;
 export default cartSlice.reducer;

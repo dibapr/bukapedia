@@ -11,10 +11,16 @@ const Stock = () => {
   const [updatedStocks, setUpdatedStocks] = useState({});
 
   const handleStockChange = (id, newQuantity) => {
-    setUpdatedStocks((prevStocks) => ({
-      ...prevStocks,
-      [id]: newQuantity,
-    }));
+    console.log(updatedStocks[id]);
+    updatedStocks[id] < 1
+      ? setUpdatedStocks((prevStocks) => ({
+          ...prevStocks,
+          [id]: 0,
+        }))
+      : setUpdatedStocks((prevStocks) => ({
+          ...prevStocks,
+          [id]: newQuantity,
+        }));
   };
 
   const handleUpdateStock = (id, quantity) => {
@@ -59,7 +65,9 @@ const Stock = () => {
                     type="number"
                     value={
                       updatedStocks[item.id] !== undefined
-                        ? updatedStocks[item.id]
+                        ? updatedStocks[item.id] <= 0
+                          ? 0
+                          : updatedStocks[item.id]
                         : item.quantity
                     }
                     className="input input-ghost text-center font-bold h-10 text-xl w-32 mx-10 rounded-base"
@@ -106,7 +114,9 @@ const Stock = () => {
                 }
                 value={
                   updatedStocks[item.id] !== undefined
-                    ? updatedStocks[item.id]
+                    ? updatedStocks[item.id] < 1
+                      ? 0
+                      : updatedStocks[item.id]
                     : item.quantity
                 }
                 className="input input-bordered text-center font-bold text-sm h-8 w-32 mr-2 rounded-base"
