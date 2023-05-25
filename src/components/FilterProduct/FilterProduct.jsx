@@ -11,19 +11,17 @@ const FilterProduct = ({ filterOnChange }) => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-5 mb-10">
-      <h1 className="text-center text-2xl font-semibold">
-        Filter by category:
-      </h1>
+    <div className="flex flex-col gap-5">
+      <h1 className="text-2xl font-semibold">Filter by category:</h1>
       <select
-        className="select select-bordered w-full mx-auto max-w-xs"
+        className="select select-bordered w-full max-w-xs"
         defaultValue="Choose a category"
         onChange={(e) => filterOnChange(e.target.value)}>
         <option disabled value="Choose a category">
           Choose a category
         </option>
         <option value="">all items</option>
-        {categories.categories.map((item, index) => (
+        {categories?.categories?.map((item, index) => (
           <option key={index} value={item}>
             {item}
           </option>

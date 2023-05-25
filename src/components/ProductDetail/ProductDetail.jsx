@@ -25,6 +25,7 @@ const ProductDetail = ({
       setModal(true);
       return;
     }
+
     const cartQuantity = cart.find((cart) => cart.id === item.id)?.quantity;
     item = { ...item, quantity: qty };
     qty <= 0 ? setQty(0) : dispatch(setCart(item));

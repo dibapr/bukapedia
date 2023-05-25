@@ -10,7 +10,7 @@ export const getCategories = createAsyncThunk(
       );
       return resp.data;
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 );

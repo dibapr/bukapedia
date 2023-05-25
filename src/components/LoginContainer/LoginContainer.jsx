@@ -20,6 +20,7 @@ const LoginContainer = ({ username, password }) => {
   };
 
   const submitHandler = async () => {
+    setErrorMsg("");
     if (userName === "admin@bukapedia.com" && userPassword === "admin123") {
       navigate("../admin");
       setErrorMsg("");

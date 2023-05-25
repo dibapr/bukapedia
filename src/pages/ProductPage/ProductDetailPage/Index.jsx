@@ -16,7 +16,7 @@ const ProductDetailPage = () => {
     if (localStorage.token === "admin") {
       return navigate("../../admin");
     }
-  }, [localStorage.token]);
+  }, []);
 
   return (
     <div className="grid lg:grid-cols-2 grid-cols-1 lg:justify-items-start gap-5 justify-items-center">

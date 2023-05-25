@@ -117,16 +117,6 @@ export const Navbar = () => {
               Cart
             </Link>
           )}
-
-          {/* {token ? (
-            <Link to="/cart" className="btn gap-2">
-              <FaShoppingCart />
-              Cart
-            </Link>
-          ) : (token !== "admin" ? <Link to="/cart" className="btn gap-2">
-              <FaShoppingCart />
-              Cart
-            </Link>) :} */}
         </div>
       </div>
       <main className="container px-7 py-10">
