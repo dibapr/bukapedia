@@ -22,7 +22,7 @@ E-Commerce Web Project using [FakeStoreAPI](https://fakestoreapi.com)
 2. Dimas Bayu Pratama
 3. Dika Rahman Rifai
 
-## 🛠 Tech Stack
+## 🛠 Tools
 1. React.js
 2. Vite (Development Environment)
 3. Tailwind (CSS Framework)
