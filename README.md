@@ -1,5 +1,5 @@
 # bukapedia
-Studi Independen Final Project 2 from Hacktiv8 about E-Commerce
+Studi Independen Final Project 2 from Hacktiv8
 
 E-Commerce Web Project using [FakeStoreAPI](https://fakestoreapi.com)
 
