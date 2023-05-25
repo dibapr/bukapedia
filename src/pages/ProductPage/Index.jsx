@@ -76,7 +76,9 @@ const ProductPage = () => {
               })
             : search
             ? filterProduct
-                .filter((item) => item.title.toLowerCase().includes(search))
+                .filter((item) =>
+                  item.title.toLowerCase().includes(search.toLowerCase())
+                )
                 .map((item, index) => (
                   <CardProduct
                     key={index}
