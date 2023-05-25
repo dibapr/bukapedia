@@ -4,21 +4,21 @@ import { useNavigate } from "react-router-dom";
 import Stock from "../../components/Admin/Stock";
 
 const Admin = () => {
-useTitle("Admin | Bukapedia");
+  useTitle("Admin | Bukapedia");
 
-const navigate = useNavigate();
-const token = localStorage.token;
+  const navigate = useNavigate();
+  const token = localStorage.token;
 
-useEffect(() => {
-  if (!token) {
-    return navigate("../login");
-  }
-  if (token !== "admin") {
-    return navigate("/");
-  }
-}, [token, navigate]);
+  useEffect(() => {
+    if (!token) {
+      return navigate("../login");
+    }
+    if (token !== "admin") {
+      return navigate("/");
+    }
+  }, [token, navigate]);
 
-return <Stock/>
+  return <Stock />;
 };
-      
-      export default Admin;
+
+export default Admin;

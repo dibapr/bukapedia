@@ -28,8 +28,7 @@ export const Navbar = () => {
                 className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+                stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -40,8 +39,7 @@ export const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content gap-1 mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-            >
+              className="menu menu-compact dropdown-content gap-1 mt-3 p-2 shadow bg-base-100 rounded-box w-52">
               <li>
                 {localStorage.token === "admin" ? (
                   <Link to="admin">Product</Link>
@@ -58,15 +56,13 @@ export const Navbar = () => {
                 {token ? (
                   <button
                     onClick={logoutHandler}
-                    className="btn btn-error text-white"
-                  >
+                    className="btn btn-error text-white">
                     Logout
                   </button>
                 ) : (
                   <Link
                     to="/login"
-                    className="bg-green-500 hover:bg-green-400 text-white"
-                  >
+                    className="bg-green-500 hover:bg-green-400 text-white">
                     Login
                   </Link>
                 )}
@@ -95,15 +91,13 @@ export const Navbar = () => {
               {token ? (
                 <button
                   onClick={logoutHandler}
-                  className="btn btn-error text-white"
-                >
+                  className="btn btn-error text-white">
                   Logout
                 </button>
               ) : (
                 <Link
                   to="/login"
-                  className="bg-green-500 hover:bg-green-400 text-white"
-                >
+                  className="bg-green-500 hover:bg-green-400 text-white">
                   Login
                 </Link>
               )}
