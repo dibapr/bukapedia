@@ -41,8 +41,6 @@ const CartPage = () => {
           : null;
     });
 
-    console.log(newArray);
-
     dispatch(updateCheckOutProduct(newArray));
     dispatch(checkOutCart(newArray));
     dispatch(updateRecapCheckOut(newArray));

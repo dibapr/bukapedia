@@ -23,14 +23,14 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCart: (state, action) => {
-      const { id, quantity, available } = action.payload;
+      const { id, quantity } = action.payload;
       const objectIndex = state.cart.findIndex((item) => item.id === id);
       objectIndex === -1
         ? state.cart.push({ ...action.payload, quantity: quantity })
         : (state.cart[objectIndex].quantity += quantity);
     },
     updateQuantityCart: (state, action) => {
-      const { id, quantity, available } = action.payload;
+      const { id, quantity } = action.payload;
       const objectIndex = state.cart.findIndex((item) => item.id === id);
 
       state.cart[objectIndex].quantity = quantity;
@@ -44,7 +44,6 @@ const cartSlice = createSlice({
     },
     updateRecapCheckOut: (state, action) => {
       const { quantity } = action.payload;
-      let objectQuantity;
       let objectIndex;
       action.payload.map(
         (item) => {
@@ -53,10 +52,7 @@ const cartSlice = createSlice({
           );
           objectIndex === -1
             ? state.recapCheckOut.push({ ...item })
-            : (state.recapCheckOut[objectIndex] = {
-                ...item,
-                quantity: quantity,
-              });
+            : (state.recapCheckOut[objectIndex].quantity += item.quantity);
         }
         // (
         //   (objectQuantity = state.product.find(

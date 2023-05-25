@@ -18,9 +18,7 @@ const SalesRecapPage = () => {
     if (token !== "admin") {
       return navigate("/");
     }
-    console.log(recapCheckOut);
-    console.log(cart);
-  }, [token, navigate, cart]);
+  }, [token, navigate]);
   let total = 0;
 
   if (recapCheckOut.length >= 1) {
